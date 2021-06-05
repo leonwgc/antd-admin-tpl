@@ -4,7 +4,7 @@ import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { useUpdateEffect } from 'ahooks';
 import routes from './routes';
 import Header from './Header';
-import menus from './menus';
+import menus, { sep } from './menus';
 import './Layout.less';
 
 const { Content, Footer, Sider } = Layout;
@@ -54,8 +54,8 @@ export default function LayoutIndex({ history }) {
     }
 
     let id = menu.id;
-    if (id.indexOf('-') > -1) {
-      let keys = id.split('-');
+    if (id.indexOf(sep) > -1) {
+      let keys = id.split(sep);
       return keys.slice(0, keys.length - 1);
     } else {
       return [];
