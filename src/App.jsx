@@ -5,6 +5,7 @@ import 'dayjs/locale/zh-cn'; // load on demand
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ConnectedRouter, Provider, configureStore, history } from 'simple-redux-store';
 import dayjs from 'dayjs';
+import { useCookieState } from 'ahooks';
 import routes from './routes';
 import usePageTitle from '~/hooks/usePageTitle';
 import './App.less';
@@ -14,7 +15,7 @@ dayjs.locale('zh-cn');
 const App = () => {
   const store = configureStore();
 
-  usePageTitle('灵工平台');
+  const [name] = useCookieState('auth');
 
   return (
     <Provider store={store}>
@@ -23,7 +24,7 @@ const App = () => {
           <Suspense fallback={<Spin spinning />}>
             <Switch>
               <Route exact path="/">
-                <Redirect to="/login" />
+                <Redirect to={name ? '/biz/customer-list' : '/login'} />
               </Route>
               {routes.map((route, idx) => (
                 <Route

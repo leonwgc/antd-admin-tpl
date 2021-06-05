@@ -99,7 +99,11 @@ export default function LayoutIndex({ history }) {
   const menuRender = (menus) => {
     return menus.map((item) => {
       if (!item.children) {
-        return <Menu.Item key={item.id}>{item.name}</Menu.Item>;
+        return (
+          <Menu.Item key={item.id} icon={item.icon}>
+            {item.name}
+          </Menu.Item>
+        );
       } else {
         return (
           <SubMenu key={item.id} title={item.name} icon={item.icon}>
@@ -113,8 +117,9 @@ export default function LayoutIndex({ history }) {
   return (
     <Layout className="site-layout">
       <Sider theme={theme} collapsed={collapsed} trigger={null} collapsible>
-        <div className="sidebar-logo-container">
+        <div className={`sidebar-logo`}>
           <div className="logo"></div>
+          {collapsed ? null : <h1>今日油条企业</h1>}
         </div>
         {/* {collapsed ? null : (
           <div className="fold-menues">

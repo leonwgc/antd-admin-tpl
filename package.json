@@ -46,8 +46,10 @@
   "scripts": {
     "prepare": "husky install",
     "lint-staged": "lint-staged",
+    "lint": "yarn lint-staged",
     "start": "packx start",
-    "clear": "rimraf dist t-dist&& clear"
+    "build": "packx build",
+    "clear": "rimraf dist t-dist && clear"
   },
   "browserslist": {
     "development": [

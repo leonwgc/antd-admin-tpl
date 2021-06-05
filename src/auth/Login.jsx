@@ -3,7 +3,7 @@ import { Input, Form, Tabs, Button, message } from 'antd';
 import useCountdown from '~/hooks/useCountdown';
 import { isValidPhone } from '~/utils/helper';
 import FormRender from 'antd-form-render';
-import { get } from '~/utils/fetch-xx';
+import { useCookieState } from 'ahooks';
 import './Login.less';
 import { useForm } from 'antd/es/form/Form';
 
@@ -14,6 +14,8 @@ export default function Login({ history }) {
   const [nameForm] = useForm();
   const [telForm] = useForm();
   const ref = useRef(null);
+
+  const [authInfo, setAuthInfo] = useCookieState('auth');
 
   const [data, setData] = useState({
     tel: '',
@@ -56,7 +58,7 @@ export default function Login({ history }) {
   ];
 
   const onNameFormFinish = (values) => {
-    console.log(values);
+    setAuthInfo(values.name);
     history.push('/biz/customer-list');
   };
   //#endregion
@@ -100,7 +102,7 @@ export default function Login({ history }) {
       elProps: {
         maxLength: 4,
         suffix: (
-          <span className="getcode" type="link" ref={ref} onClick={started ? null : show}>
+          <span style={{ cursor: 'pointer' }} ref={ref} onClick={started ? null : show}>
             {started ? countdown + '秒' : '获取验证码'}
           </span>
         ),
