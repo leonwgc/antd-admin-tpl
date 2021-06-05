@@ -122,23 +122,35 @@ export default function App() {
   // rate layout
   const rateLayout = [
     {
-      render() {
-        return (
-          <>
-            <Form.Item label="直客模式费率（含税）" name="rate1" help="不填写默认0.00%">
-              <InputNumber step={0.1} precision={2} min={0} max={1} />
-            </Form.Item>
-          </>
-        );
+      type: InputNumber,
+      name: 'rate1',
+      label: '直客模式费率（含税）',
+      elProps: {
+        precision: 2,
+        step: 0.1,
+        min: 0,
+        max: 1,
       },
     },
     {
       render() {
-        return (
-          <Form.Item label="直客模式费率（含税）" name="rate2" help="不填写默认0.00%">
-            <InputNumber step={0.1} precision={2} min={0} max={1} />
-          </Form.Item>
-        );
+        return <div style={{ display: 'inline-block', verticalAlign: -5 }}>不填写默认0.00%</div>;
+      },
+    },
+    {
+      type: InputNumber,
+      name: 'rate2',
+      label: '直客模式费率（含税）',
+      elProps: {
+        precision: 2,
+        step: 0.1,
+        min: 0,
+        max: 1,
+      },
+    },
+    {
+      render() {
+        return <div style={{ display: 'inline-block', verticalAlign: -5 }}>不填写默认0.00%</div>;
       },
     },
   ];
@@ -210,9 +222,9 @@ export default function App() {
         </Form>
       </Card>
 
-      <Card title="合作价格" style={{ marginTop: 30 }}>
+      <Card title="合作价格" style={{ marginTop: 30, width: 580 }}>
         <Form form={rateForm} initialValues={data}>
-          <FormRender layoutData={rateLayout} />
+          <FormRender layoutData={rateLayout} cols={2} />
         </Form>
       </Card>
 
