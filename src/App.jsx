@@ -14,7 +14,7 @@ dayjs.locale('zh-cn');
 
 const App = () => {
   const store = configureStore();
-
+  usePageTitle('admin');
   const [name] = useCookieState('auth');
 
   return (

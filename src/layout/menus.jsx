@@ -31,8 +31,8 @@ const menus = [
         path: '/biz/page1',
       },
       {
-        name: 'like2',
-        path: '/biz/business-type',
+        name: 'not allowed to access',
+        path: '/biz/private',
       },
     ],
   },

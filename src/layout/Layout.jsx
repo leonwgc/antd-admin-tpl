@@ -1,6 +1,6 @@
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { Layout, Menu, Spin } from 'antd';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch, useLocation } from 'react-router-dom';
 import { useUpdateEffect } from 'ahooks';
 import routes from './routes';
 import Header from './Header';
@@ -42,11 +42,9 @@ const theme = 'dark';
 export default function LayoutIndex({ history }) {
   const [collapsed, setCollapsed] = useState(false);
   const [isMenuAllUnFold, setIsMenuAllUnFold] = useState(false);
-  const [openKeys, setOpenKeys] = useState(() => {
-    const {
-      location: { pathname = '' },
-    } = history;
+  const { pathname } = useLocation();
 
+  const [openKeys, setOpenKeys] = useState(() => {
     const menu = flatMenus.find((m) => m.path === pathname);
 
     if (!menu) {
@@ -63,12 +61,7 @@ export default function LayoutIndex({ history }) {
   });
 
   const [selectedKeys, setSelectedKeys] = useState(() => {
-    const {
-      location: { pathname = '' },
-    } = history;
-
     const menu = flatMenus.find((m) => m.path === pathname);
-
     if (menu) {
       return [menu.id];
     } else {
@@ -76,9 +69,12 @@ export default function LayoutIndex({ history }) {
     }
   });
 
-  const toggleUnFoldAll = () => {
-    setIsMenuAllUnFold((i) => !i);
-  };
+  useUpdateEffect(() => {
+    const menu = flatMenus.find((m) => m.path === pathname);
+    if (menu) {
+      setSelectedKeys([menu.id]);
+    }
+  }, [pathname]);
 
   const onClick = ({ key }) => {
     const item = flatMenus.find((m) => m.id === key);
@@ -121,11 +117,6 @@ export default function LayoutIndex({ history }) {
           <div className="logo"></div>
           {collapsed ? null : <h1>今日油条企业</h1>}
         </div>
-        {/* {collapsed ? null : (
-          <div className="fold-menues">
-            <span onClick={toggleMenusFoldState}>{isMenuAllUnFold ? '收起' : '展开'}全部菜单</span>
-          </div>
-        )} */}
 
         <Menu
           theme={theme}

@@ -3,6 +3,7 @@ import { Layout, Menu, Button, Avatar, Dropdown } from 'antd';
 import { MenuUnfoldOutlined, MenuFoldOutlined, UserOutlined } from '@ant-design/icons';
 import { useUpdateStore, useSelector } from 'simple-redux-store';
 import { useCookieState } from 'ahooks';
+import useAuth from '~/hooks/useAuth';
 import './Header.less';
 
 const { Header } = Layout;
@@ -10,7 +11,7 @@ const { Header } = Layout;
 export default function PageHeader({ history, toggleCollapsed, collapsed }) {
   const app = useSelector((state) => state.app);
   const [auth, setAuth] = useCookieState('auth');
-
+  useAuth(auth);
   const menu = (
     <Menu>
       <Menu.Item

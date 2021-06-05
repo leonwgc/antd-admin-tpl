@@ -2,6 +2,14 @@ import { lazy } from 'react';
 
 const routes = [
   {
+    path: `/biz/403`,
+    component: lazy(() => import('../auth/Page403')),
+  },
+  {
+    path: `/biz/private`,
+    component: lazy(() => import('../biz/NotAllowed')),
+  },
+  {
     path: `/biz/page1`,
     component: lazy(() => import('../biz/Page1')),
   },
