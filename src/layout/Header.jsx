@@ -11,7 +11,13 @@ const { Header } = Layout;
 export default function PageHeader({ history, toggleCollapsed, collapsed }) {
   const app = useSelector((state) => state.app);
   const [auth, setAuth] = useCookieState('auth');
+  const updateStore = useUpdateStore();
   useAuth(auth);
+
+  useEffect(() => {
+    updateStore({ auth });
+  }, []);
+
   const menu = (
     <Menu>
       <Menu.Item

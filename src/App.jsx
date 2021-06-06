@@ -2,8 +2,8 @@ import React, { Suspense, useState, useEffect } from 'react';
 import { ConfigProvider, Spin } from 'antd';
 import zhCN from 'antd/es/locale/zh_CN';
 import 'dayjs/locale/zh-cn'; // load on demand
-import { Route, Switch, Redirect } from 'react-router-dom';
-import { ConnectedRouter, Provider, configureStore, history } from 'simple-redux-store';
+import { Route, Switch, Redirect, HashRouter } from 'react-router-dom';
+import { Provider, configureStore } from 'simple-redux-store';
 import dayjs from 'dayjs';
 import { useCookieState } from 'ahooks';
 import routes from './routes';
@@ -20,7 +20,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <ConfigProvider locale={zhCN}>
-        <ConnectedRouter history={history}>
+        <HashRouter history={history}>
           <Suspense fallback={<Spin spinning />}>
             <Switch>
               <Route exact path="/">
@@ -36,7 +36,7 @@ const App = () => {
               ))}
             </Switch>
           </Suspense>
-        </ConnectedRouter>
+        </HashRouter>
       </ConfigProvider>
     </Provider>
   );
