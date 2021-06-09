@@ -1,8 +1,8 @@
-import React, { Suspense, useState, useEffect } from 'react';
+import React, { Suspense } from 'react';
 import { ConfigProvider, Spin } from 'antd';
 import zhCN from 'antd/es/locale/zh_CN';
-import 'dayjs/locale/zh-cn'; // load on demand
-import { Route, Switch, Redirect, HashRouter } from 'react-router-dom';
+import 'dayjs/locale/zh-cn';
+import { Route, Switch, Redirect, BrowserRouter as Router } from 'react-router-dom';
 import { Provider, configureStore } from 'simple-redux-store';
 import dayjs from 'dayjs';
 import { useCookieState } from 'ahooks';
@@ -20,7 +20,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <ConfigProvider locale={zhCN}>
-        <HashRouter history={history}>
+        <Router>
           <Suspense fallback={<Spin spinning />}>
             <Switch>
               <Route exact path="/">
@@ -36,7 +36,7 @@ const App = () => {
               ))}
             </Switch>
           </Suspense>
-        </HashRouter>
+        </Router>
       </ConfigProvider>
     </Provider>
   );

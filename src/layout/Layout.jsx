@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useState } from 'react';
 import { Layout, Menu, Spin } from 'antd';
-import { HashRouter as Router, Route, Switch, useLocation } from 'react-router-dom';
+import { Route, Switch, useLocation } from 'react-router-dom';
 import { useUpdateEffect } from 'ahooks';
 import routes from './routes';
 import Header from './Header';
