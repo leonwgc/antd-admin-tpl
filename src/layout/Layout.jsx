@@ -1,78 +1,36 @@
 import React, { Suspense, useEffect, useState } from 'react';
 import { Layout, Menu, Spin } from 'antd';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, useLocation } from 'react-router-dom';
 import { useUpdateEffect } from 'ahooks';
 import routes from './routes';
 import Header from './Header';
-import menus, { sep } from './menus';
+import menuData from './menus';
 import './Layout.less';
 
 const { Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
-const parentMenusKeys = [];
-
-function getParentMenus(arr) {
-  for (let item of arr) {
-    if (item.children && !parentMenusKeys.includes(item.id)) {
-      parentMenusKeys.push(item.id + '');
-      getParentMenus(item.children);
-    }
-  }
-}
-
-function getFlatMenus(menus) {
-  if (!menus) return [];
-  let ar = [];
-
-  for (let m of menus) {
-    ar.push(m);
-    ar = ar.concat(getFlatMenus(m.children));
-  }
-
-  return ar;
-}
-
-const flatMenus = getFlatMenus(menus);
-
-getParentMenus(menus);
-
 const theme = 'dark';
+
+const { flatMenus, parentMenusKeys, menus, sep } = menuData;
 
 export default function LayoutIndex({ history }) {
   const [collapsed, setCollapsed] = useState(false);
-  const [isMenuAllUnFold, setIsMenuAllUnFold] = useState(false);
+  const [isMenuAllUnFold] = useState(false); // fold all by default
   const { pathname } = useLocation();
 
-  const [openKeys, setOpenKeys] = useState(() => {
-    const menu = flatMenus.find((m) => m.path === pathname);
+  const [openKeys, setOpenKeys] = useState([]);
+  const [selectedKeys, setSelectedKeys] = useState([]);
 
-    if (!menu) {
-      return [];
-    }
-
-    let id = menu.id;
-    if (id.indexOf(sep) > -1) {
-      let keys = id.split(sep);
-      return keys.slice(0, keys.length - 1);
-    } else {
-      return [];
-    }
-  });
-
-  const [selectedKeys, setSelectedKeys] = useState(() => {
-    const menu = flatMenus.find((m) => m.path === pathname);
-    if (menu) {
-      return [menu.id];
-    } else {
-      return [];
-    }
-  });
-
-  useUpdateEffect(() => {
+  useEffect(() => {
     const menu = flatMenus.find((m) => m.path === pathname);
     if (menu) {
       setSelectedKeys([menu.id]);
+
+      if (menu.id.indexOf(sep) > -1) {
+        let keys = menu.id.split(sep);
+        setOpenKeys(keys.slice(0, keys.length - 1));
+      }
     }
   }, [pathname]);
 
@@ -115,7 +73,7 @@ export default function LayoutIndex({ history }) {
       <Sider theme={theme} collapsed={collapsed} trigger={null} collapsible>
         <div className={`sidebar-logo`}>
           <div className="logo"></div>
-          {collapsed ? null : <h1>今日油条企业</h1>}
+          {collapsed ? null : <h1>测试企业</h1>}
         </div>
 
         <Menu
@@ -136,19 +94,21 @@ export default function LayoutIndex({ history }) {
           toggleCollapsed={() => setCollapsed((c) => !c)}
         />
         <Content style={{ padding: 20, minWidth: 980 }}>
-          <Suspense fallback={<Spin spinning />}>
-            <Switch>
-              {routes.map((route, idx) => (
-                <Route
-                  key={idx}
-                  path={route.path}
-                  exact={route.exact}
-                  component={route.component}
-                />
-              ))}
-              <Route render={() => <div>not found</div>}></Route>
-            </Switch>
-          </Suspense>
+          <div className="content-wrap">
+            <Suspense fallback={<Spin spinning />}>
+              <Switch>
+                {routes.map((route, idx) => (
+                  <Route
+                    key={idx}
+                    path={route.path}
+                    exact={route.exact}
+                    component={route.component}
+                  />
+                ))}
+                <Route render={() => <div>not found</div>}></Route>
+              </Switch>
+            </Suspense>
+          </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}> powered by react/antd</Footer>
       </Layout>
