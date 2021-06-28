@@ -2759,21 +2759,6 @@ cheerio@^1.0.0-rc.9:
     parse5-htmlparser2-tree-adapter "^6.0.1"
     tslib "^2.2.0"
 
-"chokidar@>=3.0.0 <4.0.0", chokidar@^3.4.0:
-  version "3.5.1"
-  resolved "http://npm.zhonganonline.com/chokidar/-/chokidar-3.5.1.tgz#ee9ce7bbebd2b79f49f304799d5468e31e14e68a"
-  integrity sha1-7pznu+vSt59J8wR5nVRo4x4U5oo=
-  dependencies:
-    anymatch "~3.1.1"
-    braces "~3.0.2"
-    glob-parent "~5.1.0"
-    is-binary-path "~2.1.0"
-    is-glob "~4.0.1"
-    normalize-path "~3.0.0"
-    readdirp "~3.5.0"
-  optionalDependencies:
-    fsevents "~2.3.1"
-
 chokidar@^2.1.8:
   version "2.1.8"
   resolved "http://npm.zhonganonline.com/chokidar/-/chokidar-2.1.8.tgz#804b3a7b6a99358c3c5c61e71d8728f041cff917"
@@ -2792,6 +2777,21 @@ chokidar@^2.1.8:
     upath "^1.1.1"
   optionalDependencies:
     fsevents "^1.2.7"
+
+chokidar@^3.4.0:
+  version "3.5.1"
+  resolved "http://npm.zhonganonline.com/chokidar/-/chokidar-3.5.1.tgz#ee9ce7bbebd2b79f49f304799d5468e31e14e68a"
+  integrity sha1-7pznu+vSt59J8wR5nVRo4x4U5oo=
+  dependencies:
+    anymatch "~3.1.1"
+    braces "~3.0.2"
+    glob-parent "~5.1.0"
+    is-binary-path "~2.1.0"
+    is-glob "~4.0.1"
+    normalize-path "~3.0.0"
+    readdirp "~3.5.0"
+  optionalDependencies:
+    fsevents "~2.3.1"
 
 chrome-trace-event@^1.0.2:
   version "1.0.3"
@@ -6865,10 +6865,10 @@ p-try@^2.0.0:
   resolved "http://npm.zhonganonline.com/p-try/-/p-try-2.2.0.tgz#cb2868540e313d61de58fafbe35ce9004d5540e6"
   integrity sha1-yyhoVA4xPWHeWPr741zpAE1VQOY=
 
-packx@^0.4.2:
-  version "0.4.2"
-  resolved "https://registry.nlark.com/packx/download/packx-0.4.2.tgz#34ae13ae911acf8c453965130344018170465e31"
-  integrity sha1-NK4TrpEaz4xFOWUTA0QBgXBGXjE=
+packx@>=0.4.4:
+  version "0.4.4"
+  resolved "https://registry.nlark.com/packx/download/packx-0.4.4.tgz?cache=0&sync_timestamp=1624865547718&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fpackx%2Fdownload%2Fpackx-0.4.4.tgz#25844cb605c2d39244a1c8ecff933b8122e0d0a2"
+  integrity sha1-JYRMtgXC05JEocjs/5M7gSLg0KI=
   dependencies:
     "@babel/cli" "^7.14.3"
     "@babel/core" "^7.14.3"
@@ -6906,7 +6906,6 @@ packx@^0.4.2:
     postcss-loader "^5.3.0"
     postcss-preset-env "^6.7.0"
     react-refresh "^0.10.0"
-    sass "^1.32.13"
     sass-loader "^11.1.1"
     style-loader "^2.0.0"
     typescript "^4.2.4"
@@ -8630,13 +8629,6 @@ sass-loader@^11.1.1:
   dependencies:
     klona "^2.0.4"
     neo-async "^2.6.2"
-
-sass@^1.32.13:
-  version "1.34.1"
-  resolved "http://npm.zhonganonline.com/sass/-/sass-1.34.1.tgz#30f45c606c483d47b634f1e7371e13ff773c96ef"
-  integrity sha1-MPRcYGxIPUe2NPHnNx4T/3c8lu8=
-  dependencies:
-    chokidar ">=3.0.0 <4.0.0"
 
 saxes@^5.0.1:
   version "5.0.1"

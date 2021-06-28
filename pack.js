@@ -42,7 +42,7 @@ pack(
       index: [`./src/index`],
     },
     devServer: {
-      port: 9002,
+      port: 3003,
       historyApiFallback: true,
       headers: { 'Access-Control-Allow-Origin': '*' },
     },
