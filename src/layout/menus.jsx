@@ -4,7 +4,6 @@ import { nanoid } from 'nanoid';
 import { useLocation, useHistory } from 'react-router-dom';
 import { Menu, Spin } from 'antd';
 import * as service from '../service';
-import { useUpdateEffect } from 'ahooks';
 const { SubMenu } = Menu;
 
 const sep = '$';
@@ -58,7 +57,6 @@ const getMenuInfo = (menus) => {
 
 const Menus = ({ theme = 'dark' }) => {
   const history = useHistory();
-  // const [isMenuAllUnFold] = useState(false); // fold all by default
   const { pathname } = useLocation();
   const [menuInfo, setMenuInfo] = useState({});
   const [loading, setLoading] = useState(false);
@@ -100,19 +98,13 @@ const Menus = ({ theme = 'dark' }) => {
     const item = flatMenus.find((m) => m.id === key);
     if (item) {
       setSelectedKeys([item.id]);
-      history.push(item.funUrl);
+      if (item.funUrl.startsWith('http')) {
+        history.push('/biz/outside?url=' + encodeURIComponent(item.funUrl));
+      } else {
+        history.push(item.funUrl);
+      }
     }
   };
-
-  // useUpdateEffect(() => {
-  //   if (menuInfo) {
-  //     if (isMenuAllUnFold) {
-  //       setOpenKeys(menuInfo.parentMenusKeys);
-  //     } else {
-  //       setOpenKeys([]);
-  //     }
-  //   }
-  // }, [isMenuAllUnFold, menuInfo]);
 
   const menuRender = (menus = []) => {
     return menus.map((item) => {

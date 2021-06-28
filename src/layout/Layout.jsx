@@ -34,7 +34,7 @@ export default function LayoutIndex({ history }) {
           collapsed={collapsed}
           toggleCollapsed={() => setCollapsed((c) => !c)}
         />
-        <Content style={{ padding: 20, minWidth: 980 }}>
+        <Content style={{ minWidth: 980 }}>
           <div className="content-wrap">
             <Suspense fallback={<Spin spinning />}>
               <Switch>

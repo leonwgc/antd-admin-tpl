@@ -30,7 +30,7 @@ export const getMenus = () => {
         },
         {
           funTitle: '任务单管理',
-          funUrl: '/biz/comp-task-list',
+          funUrl: 'https://t-hrm.zuifuli.com/#/attend/setting',
         },
       ]);
     }, 1000);

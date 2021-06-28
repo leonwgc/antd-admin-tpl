@@ -6,6 +6,10 @@ const routes = [
     component: lazy(() => import('../auth/Page403')),
   },
   {
+    path: `/biz/outside`,
+    component: lazy(() => import('../layout/Outside')),
+  },
+  {
     path: `/biz/private`,
     component: lazy(() => import('../biz/NotAllowed')),
   },
