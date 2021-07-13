@@ -5,7 +5,6 @@ import 'dayjs/locale/zh-cn';
 import { Route, Switch, Redirect, BrowserRouter as Router } from 'react-router-dom';
 import { Provider, configureStore } from 'simple-redux-store';
 import dayjs from 'dayjs';
-import { useCookieState } from 'ahooks';
 import routes from './routes';
 import usePageTitle from '~/hooks/usePageTitle';
 import './App.less';
@@ -15,7 +14,6 @@ dayjs.locale('zh-cn');
 const App = () => {
   const store = configureStore();
   usePageTitle('admin');
-  const [name] = useCookieState('auth');
 
   return (
     <Provider store={store}>

@@ -3,7 +3,7 @@ import { Input, Form, Tabs, Button, message } from 'antd';
 import useCountdown from '~/hooks/useCountdown';
 import { isValidPhone } from '~/utils/helper';
 import FormRender from 'antd-form-render';
-import { useCookieState } from 'ahooks';
+import * as storage from 'simple-browser-store';
 import './Login.less';
 import { useForm } from 'antd/es/form/Form';
 
@@ -14,8 +14,6 @@ export default function Login({ history }) {
   const [nameForm] = useForm();
   const [telForm] = useForm();
   const ref = useRef(null);
-
-  const [authInfo, setAuthInfo] = useCookieState('auth');
 
   const [data, setData] = useState({
     tel: '',
@@ -58,7 +56,7 @@ export default function Login({ history }) {
   ];
 
   const onNameFormFinish = (values) => {
-    setAuthInfo(values.name);
+    storage.setData('localStorage', 'admin', values);
     history.push('/biz/customer-list');
   };
   //#endregion
@@ -126,7 +124,6 @@ export default function Login({ history }) {
   ];
 
   const onTelFormFinish = (values) => {
-    console.log(values);
     history.push('/biz/customer-list');
   };
 

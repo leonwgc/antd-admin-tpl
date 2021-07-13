@@ -1,29 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Menu, Button, Avatar, Dropdown } from 'antd';
 import { MenuUnfoldOutlined, MenuFoldOutlined, UserOutlined } from '@ant-design/icons';
-import { useUpdateStore, useSelector } from 'simple-redux-store';
-import { useCookieState } from 'ahooks';
-import useAuth from '~/hooks/useAuth';
+import * as storage from 'simple-browser-store';
 import './Header.less';
 
 const { Header } = Layout;
 
 export default function PageHeader({ history, toggleCollapsed, collapsed }) {
-  const app = useSelector((state) => state.app);
-  const [auth, setAuth] = useCookieState('auth');
-  const updateStore = useUpdateStore();
-  useAuth(auth);
-
-  useEffect(() => {
-    updateStore({ auth });
-  }, []);
+  const { name } = storage.getData('localStorage', 'admin');
 
   const menu = (
     <Menu>
       <Menu.Item
         style={{ width: '100%' }}
         onClick={() => {
-          setAuth('');
           history.push('/login');
         }}
       >
@@ -46,7 +36,7 @@ export default function PageHeader({ history, toggleCollapsed, collapsed }) {
               icon={<UserOutlined />}
               style={{ marginRight: 8, backgroundColor: '#87d068' }}
             />
-            {auth}
+            {name}
           </div>
         </Dropdown>
         ,
