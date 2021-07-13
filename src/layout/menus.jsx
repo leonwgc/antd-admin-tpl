@@ -1,24 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import { BarsOutlined } from '@ant-design/icons';
+import React, { useEffect, useState, useMemo } from 'react';
 import { nanoid } from 'nanoid';
 import { useLocation, useHistory } from 'react-router-dom';
-import { Menu, Spin } from 'antd';
-import * as service from '../service';
+import { Menu } from 'antd';
+import Icon from '~/common/Icon';
+import styled, { css } from 'styled-components';
+import { useSelector, useUpdateStore } from 'simple-redux-store';
+import { getSearchParams } from '~/utils/helper';
 const { SubMenu } = Menu;
 
 const sep = '$';
 
 const setMenusWithId = (menus, parentId = '') => {
   for (let menu of menus) {
-    menu.id = `${parentId}${parentId ? sep : ''}${nanoid(10)}`;
-    if (menu.childs && Array.isArray(menu.childs)) {
-      setMenusWithId(menu.childs, menu.id);
+    if (!menu.set) {
+      menu.id = `${parentId}${parentId ? sep : ''}${nanoid(10)}`;
+      menu.set = true;
+      if (menu.childs && Array.isArray(menu.childs)) {
+        setMenusWithId(menu.childs, menu.id);
+      }
     }
   }
 };
 
-const getMenuInfo = (menus) => {
-  setMenusWithId(menus);
+export const getFlatMenus = (menus) => {
+  if (!menus) return [];
+  let ar = [];
+
+  for (let m of menus) {
+    ar.push(m);
+    ar = ar.concat(getFlatMenus(m.childs));
+  }
+
+  return ar;
+};
+
+export const getMenuInfo = (menus, skipSetId = false) => {
+  if (!skipSetId) {
+    setMenusWithId(menus);
+  }
 
   let parentMenusKeys = [];
 
@@ -33,18 +52,6 @@ const getMenuInfo = (menus) => {
 
   getParentMenuKeys(menus);
 
-  function getFlatMenus(menus) {
-    if (!menus) return [];
-    let ar = [];
-
-    for (let m of menus) {
-      ar.push(m);
-      ar = ar.concat(getFlatMenus(m.childs));
-    }
-
-    return ar;
-  }
-
   const flatMenus = getFlatMenus(menus);
 
   return {
@@ -55,43 +62,43 @@ const getMenuInfo = (menus) => {
   };
 };
 
-const Menus = ({ theme = 'dark' }) => {
+const defaultIcon = 'icon-zhankai_line';
+
+const Menus = () => {
+  const updateStore = useUpdateStore();
+  const { currentMenu = {}, menuCollapsed = false } = useSelector((state) => state.app);
   const history = useHistory();
   const { pathname } = useLocation();
-  const [menuInfo, setMenuInfo] = useState({});
-  const [loading, setLoading] = useState(false);
-
   const [openKeys, setOpenKeys] = useState([]);
   const [selectedKeys, setSelectedKeys] = useState([]);
+  const menuInfo = useMemo(() => getMenuInfo(currentMenu?.childs || []), [currentMenu]);
 
   useEffect(() => {
-    setLoading(true);
-    service.getMenus().then((result = []) => {
-      const { flatMenus, parentMenusKeys, menus, sep } = getMenuInfo(result);
-      setMenuInfo({
-        flatMenus,
-        parentMenusKeys,
-        menus,
-        sep,
-      });
-      setLoading(false);
-    });
-  }, []);
+    // menuInfo update , this update , ignore pathname for mutiple menu unfold
+    const { flatMenus = [], sep } = menuInfo;
+    if (flatMenus.length) {
+      let menu = flatMenus.find((m) => m.funUrl === pathname);
+      if (pathname === '/outside') {
+        const { search = '' } = location;
 
-  useEffect(() => {
-    if (menuInfo) {
-      const { flatMenus = [], sep } = menuInfo;
-      const menu = flatMenus.find((m) => m.funUrl === pathname);
+        if (search.indexOf('?') === 0) {
+          const searchObj = getSearchParams(search.slice(1)) || {};
+          const { url = '' } = searchObj;
+          menu = flatMenus.find((m) => m.funUrl === url);
+        }
+      }
       if (menu) {
         setSelectedKeys([menu.id]);
 
         if (menu.id.indexOf(sep) > -1) {
           let keys = menu.id.split(sep);
-          setOpenKeys(keys.slice(0, keys.length - 1));
+          if (!menuCollapsed) {
+            setOpenKeys(keys.slice(0, keys.length - 1));
+          }
         }
       }
     }
-  }, [pathname, menuInfo]);
+  }, [menuInfo, pathname, menuCollapsed]);
 
   const onClick = ({ key }) => {
     const { flatMenus = [] } = menuInfo;
@@ -99,41 +106,100 @@ const Menus = ({ theme = 'dark' }) => {
     if (item) {
       setSelectedKeys([item.id]);
       if (item.funUrl.startsWith('http')) {
-        history.push('/biz/outside?url=' + encodeURIComponent(item.funUrl));
+        history.push('/outside?url=' + encodeURIComponent(item.funUrl));
       } else {
         history.push(item.funUrl);
       }
     }
   };
 
-  const menuRender = (menus = []) => {
-    return menus.map((item) => {
-      if (!item.childs) {
-        return <Menu.Item key={item.id}>{item.funTitle}</Menu.Item>;
+  const getSubMenuClassName = (id) => {
+    if (menuCollapsed) {
+      if (openKeys.includes(id)) {
+        return 'active collapsed';
+      } else {
+        return 'collapsed';
+      }
+    } else {
+      return '';
+    }
+  };
+
+  const menuRender = (menus = [], isFirst = true) => {
+    const renderMenuNoChilds = (item) => {
+      if (isFirst) {
+        return menuCollapsed ? (
+          <SubMenu
+            className={getSubMenuClassName(item.id)}
+            collapsed={menuCollapsed}
+            noArrow
+            onTitleClick={() => history.push(item.funUrl)}
+            key={item.id}
+            title={menuCollapsed ? null : item.funTitle}
+            icon={
+              menuCollapsed ? (
+                <Icon
+                  type={item.funLogo || defaultIcon}
+                  style={{ color: '#8c8c8c', fontSize: 20 }}
+                />
+              ) : null
+            }
+          ></SubMenu>
+        ) : (
+          <Menu.Item key={item.id} style={{ fontWeight: 'bolder', paddingLeft: 16 }}>
+            {item.funTitle}
+          </Menu.Item>
+        );
       } else {
         return (
-          <SubMenu key={item.id} title={item.funTitle} icon={<BarsOutlined />}>
-            {menuRender(item.childs)}
+          <Menu.Item key={item.id} style={{ paddingLeft: 30 }}>
+            {item.funTitle}
+          </Menu.Item>
+        );
+      }
+    };
+
+    return menus.map((item) => {
+      if (!item.childs) {
+        // no childs . e.g. settings
+        return renderMenuNoChilds(item);
+      } else {
+        return (
+          <SubMenu
+            className={getSubMenuClassName(item.id)}
+            collapsed={menuCollapsed}
+            key={item.id}
+            title={menuCollapsed ? null : item.funTitle}
+            icon={
+              menuCollapsed ? (
+                <Icon
+                  type={item.funLogo || defaultIcon}
+                  style={{ color: '#8c8c8c', fontSize: 20 }}
+                />
+              ) : null
+            }
+          >
+            {menuRender(item.childs, false)}
           </SubMenu>
         );
       }
     });
   };
   return (
-    <Spin spinning={loading}>
+    <div collapsed={menuCollapsed}>
       <Menu
-        theme={theme}
-        mode={'inline'}
+        theme="dark"
+        collapsed={menuCollapsed}
+        mode={menuCollapsed ? 'vertical' : 'inline'}
         onClick={onClick}
         openKeys={openKeys}
         selectedKeys={selectedKeys}
         onOpenChange={setOpenKeys}
-        className="left-menus"
       >
         {menuRender(menuInfo?.menus)}
       </Menu>
-    </Spin>
+    </div>
   );
 };
 
-export default React.memo(Menus);
+export default Menus;

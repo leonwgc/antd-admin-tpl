@@ -5,6 +5,7 @@ const pkg = require('./package.json');
 const chalk = require('chalk');
 const path = require('path');
 const process = require('process');
+const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
 
 const isDev = !!argv.dev;
 let env = argv.env;
@@ -50,6 +51,7 @@ pack(
       path: getDist(env),
       publicPath,
     },
+    plugins: [new AntdDayjsWebpackPlugin()],
   },
   () => {
     // only non-dev mode this callback would be run

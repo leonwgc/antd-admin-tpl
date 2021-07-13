@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Input, Form, Tabs, Button, message } from 'antd';
-import useCountdown from '~/hooks/useCountdown';
+import { useCountdown } from 'react-use-lib';
 import { isValidPhone } from '~/utils/helper';
 import FormRender from 'antd-form-render';
 import * as storage from 'simple-browser-store';
