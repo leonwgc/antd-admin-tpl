@@ -14,8 +14,8 @@ const routeList = [...settingRoutes, ...userRoutes];
 
 const StyledContent = styled.div`
   background-color: #fff;
-  padding: 20px 20px 0;
-  height: calc(100vh - 112px);
+  padding: 20px;
+  height: calc(100vh - 96px);
   overflow-y: scroll;
   box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
   &::-webkit-scrollbar {
