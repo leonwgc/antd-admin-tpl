@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import FormRender from 'antd-form-render';
-import { Form, Button, Space, Input, Radio, Select, Steps, Card, InputNumber } from 'antd';
+import { Form, Button, Space, Input, Steps, Card, InputNumber } from 'antd';
 
 const { Step } = Steps;
 
@@ -10,7 +10,7 @@ const defaultBank = {
   code: '',
 };
 
-export default function App() {
+export default function Add() {
   const [data, setData] = useState({
     companyName: 'name',
     taxNumber: '123',

@@ -11,7 +11,7 @@ const getTableData = ({ current = 1, pageSize = 10 }, formData = {}) => {
   });
 };
 
-export default function CustomerList({ history }) {
+export default function List({ history }) {
   usePageTitle('page title');
 
   const [form] = Form.useForm();
@@ -81,7 +81,7 @@ export default function CustomerList({ history }) {
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
-        <Button type="primary" onClick={() => history.push('/biz/add-customer')}>
+        <Button type="primary" onClick={() => history.push('/user/add')}>
           新增客户
         </Button>
         <Form form={form} onFinish={search}>
