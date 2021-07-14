@@ -13,7 +13,7 @@ import './App.less';
 dayjs.locale('zh-cn');
 
 const App = () => {
-  usePageTitle('admin');
+  usePageTitle('后台管理');
   const updateStore = useUpdateStore();
   const [loading, setLoading] = useState(false);
 

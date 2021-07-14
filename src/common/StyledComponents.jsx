@@ -4,12 +4,12 @@ import styled from 'styled-components';
 export const StyledBody = styled.section`
   background: ${({ bgColor = '#fff' }) => bgColor};
   min-width: 1080px;
-  /* border-radius: 8px 8px 0px 0px; */
   position: relative;
 `;
 
 export const StyledAdminWrapper = styled.div`
   min-height: calc(100vh - 64px);
+  background-color: #f5f5f5;
   flex: 1;
 `;
 

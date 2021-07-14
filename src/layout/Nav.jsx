@@ -7,7 +7,7 @@ import { Space } from 'antd';
 const StyledNav = styled.div`
   height: 48px;
   line-height: 48px;
-  background: #ffffff;
+  background: #fff;
   border-radius: 0px 8px 0px 0px;
   padding: 0 20px;
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.04);

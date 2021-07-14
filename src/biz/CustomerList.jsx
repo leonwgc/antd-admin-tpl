@@ -81,11 +81,7 @@ export default function CustomerList({ history }) {
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
-        <Button
-          style={{ marginLeft: 15 }}
-          type="primary"
-          onClick={() => history.push('/biz/add-customer')}
-        >
+        <Button type="primary" onClick={() => history.push('/biz/add-customer')}>
           新增客户
         </Button>
         <Form form={form} onFinish={search}>

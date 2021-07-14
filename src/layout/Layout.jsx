@@ -1,5 +1,5 @@
 import React, { Suspense, useState } from 'react';
-import { Layout, Spin } from 'antd';
+import { Spin } from 'antd';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import routes from './routes';
 import Menus from './Menus';
@@ -7,11 +7,16 @@ import Nav from './Nav';
 import styled from 'styled-components';
 import Header from './Header';
 import { StyledAdminWrapper, StyledBody } from '~/common/StyledComponents';
-import './Layout.less';
 
 const StyledContent = styled.div`
-  background-color: #f5f5f5;
-  padding: 20px;
+  background-color: #fff;
+  padding: 20px 20px 0;
+  height: calc(100vh - 112px);
+  overflow-y: scroll;
+  box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 const theme = 'dark';
 

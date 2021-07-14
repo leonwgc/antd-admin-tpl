@@ -11,23 +11,22 @@ const { SubMenu } = Menu;
 const theme = 'dark';
 
 const StyledWrap = styled.div`
-  /* height: 100vh; */
   background-color: #001529;
+  transition: all 0.2s;
 `;
 
 const StyledMenuTop = styled.div`
   display: flex;
   height: 64px;
-  width: ${({ collapsed }) => (collapsed ? '80px' : '200px')};
   justify-content: ${({ collapsed }) => (collapsed ? 'center' : 'flex-start')};
   align-items: center;
   padding: ${({ collapsed }) => (!collapsed ? '0 20px' : 'unset')};
   h1 {
     color: ${({ theme }) => (theme === 'dark' ? '#fff' : '')};
     vertical-align: middle;
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 0;
-    margin-left: 16px;
+    margin-left: 12px;
   }
   .logo {
     width: 32px;
@@ -42,7 +41,7 @@ const StyledMenuTop = styled.div`
 const StyledMenu = styled(Menu)`
   border-right: none;
   height: calc(100vh - 64px);
-  width: ${({ collapsed = false }) => (collapsed ? '80px' : '200px')};
+  width: ${({ collapsed = false }) => (collapsed ? '48px' : '208px')} !important;
   font-size: 14px;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
