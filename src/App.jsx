@@ -36,7 +36,7 @@ const App = () => {
         <Suspense fallback={<Spin spinning />}>
           <Switch>
             <Route exact path="/">
-              <Redirect to={name ? '/biz/customer-list' : '/login'} />
+              <Redirect to={'/user/add'} />
             </Route>
             {routes.map((route, idx) => (
               <Route key={idx} path={route.path} exact={route.exact} component={route.component} />

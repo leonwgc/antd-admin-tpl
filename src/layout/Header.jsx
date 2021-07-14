@@ -60,7 +60,8 @@ export default function Header() {
 
   useEffect(() => {
     if (theme) {
-      loadResource(`https://static.zuifuli.com/antd-theme/custom-theme-${theme}.css`);
+      // eslint-disable-next-line no-undef
+      loadResource(`${__webpack_public_path__}custom-theme-${theme}.css`);
     }
   }, [theme]);
 

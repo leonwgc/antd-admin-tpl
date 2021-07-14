@@ -5,6 +5,7 @@ const pkg = require('./package.json');
 const chalk = require('chalk');
 const path = require('path');
 const process = require('process');
+const express = require('express');
 const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
 
 const isDev = !!argv.dev;
@@ -46,6 +47,9 @@ pack(
       port: 3003,
       historyApiFallback: true,
       headers: { 'Access-Control-Allow-Origin': '*' },
+      setup: function (app, server) {
+        app.use(express.static(path.join(__dirname, `public`)));
+      },
     },
     output: {
       path: getDist(env),
