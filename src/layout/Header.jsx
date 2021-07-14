@@ -1,10 +1,37 @@
-import React from 'react';
-import { Menu, Avatar, Dropdown, Space } from 'antd';
+import React, { useEffect } from 'react';
+import { Menu, Avatar, Dropdown, Space, Button, Drawer } from 'antd';
 import { useSelector, useUpdateStore } from 'simple-redux-store';
 import { useHistory } from 'react-router-dom';
-import { MenuUnfoldOutlined, MenuFoldOutlined, UserOutlined } from '@ant-design/icons';
+import { loadResource, saveSetting } from '~/utils/helper';
+import {
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
+  UserOutlined,
+  SettingOutlined,
+} from '@ant-design/icons';
 import * as storage from 'simple-browser-store';
 import styled from 'styled-components';
+
+const colors = [
+  { name: 'green', color: '#08bc63' },
+  { name: 'red', color: '#f5222d' },
+  {
+    name: 'blue',
+    color: '#004bcc',
+  },
+];
+
+const StyledColorBlock = styled.div`
+  width: 20px;
+  height: 20px;
+  margin-top: 8px;
+  margin-right: 8px;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 2px;
+  cursor: pointer;
+`;
 
 const StyledHeader = styled.header`
   display: flex;
@@ -27,9 +54,15 @@ const StyledHeader = styled.header`
 export default function Header() {
   const history = useHistory();
   const { name } = storage.getData('localStorage', 'admin');
-  const { menuCollapsed } = useSelector((state) => state.app);
+  const { menuCollapsed, isSettingVisile, theme = '' } = useSelector((state) => state.app);
 
   const updateStore = useUpdateStore();
+
+  useEffect(() => {
+    if (theme) {
+      loadResource(`https://static.zuifuli.com/antd-theme/custom-theme-${theme}.css`);
+    }
+  }, [theme]);
 
   const menu = (
     <Menu>
@@ -51,6 +84,12 @@ export default function Header() {
       </a>
 
       <Space size={12}>
+        <Button
+          icon={<SettingOutlined />}
+          type="default"
+          shape="circle"
+          onClick={() => updateStore({ isSettingVisile: true })}
+        ></Button>
         <Dropdown overlay={menu}>
           <div>
             <Avatar
@@ -61,6 +100,28 @@ export default function Header() {
         </Dropdown>
         <span>{name}</span>
       </Space>
+      <Drawer
+        title="主题色设置"
+        placement="right"
+        closable={false}
+        onClose={() => updateStore({ isSettingVisile: false })}
+        visible={isSettingVisile}
+      >
+        <p>
+          <Space>
+            {colors.map((c, i) => (
+              <StyledColorBlock
+                onClick={() => {
+                  updateStore({ theme: c.name });
+                  saveSetting({ theme: c.name });
+                }}
+                style={{ backgroundColor: c.color }}
+                key={i}
+              />
+            ))}
+          </Space>
+        </p>
+      </Drawer>
     </StyledHeader>
   );
 }

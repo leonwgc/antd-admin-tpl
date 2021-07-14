@@ -1,4 +1,15 @@
 import * as qs from 'qs';
+import { setData, getData } from 'simple-browser-store';
+
+const key = '__admin__';
+
+export const getSetting = () => {
+  return getData('localStorage', key);
+};
+
+export const saveSetting = (data) => {
+  setData('localStorage', key, data);
+};
 
 // object to form-urlencoded string
 export function getQueryString(object) {
@@ -32,5 +43,38 @@ export const responseCheck = (res) => {
     let code = Number(res.code);
     if (code) return reject(res);
     resolve(res);
+  });
+};
+
+const cssRegex = /\.css$/i;
+const jsRegex = /\.js$/i;
+
+export const loadResource = (url) => {
+  return new Promise((resolve, reject) => {
+    if (url) {
+      let el;
+      let isCss = false;
+      if (cssRegex.test(url)) {
+        isCss = true;
+        el = document.createElement('link');
+        el.rel = 'stylesheet';
+        el.href = url;
+      } else if (jsRegex.test(url)) {
+        el = document.createElement('script');
+        el.src = url;
+      }
+      el.id = url;
+
+      el.onload = resolve;
+
+      if (isCss) {
+        const head = document.getElementsByTagName('head')[0];
+        head.appendChild(el);
+      } else {
+        document.body.appendChild(el);
+      }
+    } else {
+      reject('url is required');
+    }
   });
 };

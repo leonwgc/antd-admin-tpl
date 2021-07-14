@@ -23,6 +23,7 @@
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
+    "@emeks/antd-custom-theme-generator": "^0.2.0",
     "@types/jest": "^26.0.23",
     "@types/react": "^17.0.9",
     "@types/react-dom": "^17.0.6",

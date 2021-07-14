@@ -12,8 +12,6 @@ const getTableData = ({ current = 1, pageSize = 10 }, formData = {}) => {
 };
 
 export default function List({ history }) {
-  usePageTitle('page title');
-
   const [form] = Form.useForm();
   const { tableProps, search, loading, refresh } = useAntdTable(getTableData, { form });
   const { submit, reset } = search;
