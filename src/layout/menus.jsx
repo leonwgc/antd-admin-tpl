@@ -11,7 +11,7 @@ const { SubMenu } = Menu;
 const theme = 'dark';
 
 const StyledWrap = styled.div`
-  height: 100vh;
+  /* height: 100vh; */
   background-color: #001529;
 `;
 
