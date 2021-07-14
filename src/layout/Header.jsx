@@ -12,23 +12,6 @@ import {
 import * as storage from 'simple-browser-store';
 import styled from 'styled-components';
 
-const colors = [
-  { name: 'green', color: '#08bc63' },
-  { name: 'red', color: '#f5222d' },
-  {
-    name: 'blue',
-    color: '#004bcc',
-  },
-  {
-    name: 'purple',
-    color: '#9254de',
-  },
-  {
-    name: 'yellow',
-    color: 'rgb(250, 173, 20)',
-  },
-];
-
 const StyledColorBlock = styled.div`
   width: 20px;
   height: 20px;
@@ -62,16 +45,16 @@ const StyledHeader = styled.header`
 export default function Header() {
   const history = useHistory();
   const { name } = storage.getData('localStorage', 'admin');
-  const { menuCollapsed, isSettingVisile, theme = '' } = useSelector((state) => state.app);
+  const { menuCollapsed, isSettingVisile, color = '', colors } = useSelector((state) => state.app);
 
   const updateStore = useUpdateStore();
 
   useEffect(() => {
-    if (theme) {
+    if (color) {
       // eslint-disable-next-line no-undef
-      loadResource(`${__webpack_public_path__}custom-theme-${theme}.css`);
+      loadResource(`${__webpack_public_path__}custom-theme-${color}.css`);
     }
-  }, [theme]);
+  }, [color]);
 
   const menu = (
     <Menu>
@@ -121,8 +104,8 @@ export default function Header() {
             {colors.map((c, i) => (
               <StyledColorBlock
                 onClick={() => {
-                  updateStore({ theme: c.name });
-                  saveSetting({ theme: c.name });
+                  updateStore({ color: c.name });
+                  saveSetting({ color: c.name });
                 }}
                 style={{ backgroundColor: c.color }}
                 key={i}
