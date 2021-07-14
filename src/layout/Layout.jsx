@@ -2,9 +2,17 @@ import React, { Suspense, useState } from 'react';
 import { Layout, Menu, Spin } from 'antd';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import routes from './routes';
-import Header from './Header';
 import Menus from './Menus';
+import Nav from './Nav';
+import styled from 'styled-components';
+import Header from './Header';
+import { StyledAdminWrapper, StyledBody } from '~/common/StyledComponents';
 import './Layout.less';
+
+const StyledContent = styled.div`
+  background-color: #f5f5f5;
+  padding: 20px;
+`;
 
 const { Content, Footer, Sider } = Layout;
 const theme = 'dark';
@@ -13,29 +21,14 @@ export default function LayoutIndex({ history }) {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <Layout className="site-layout">
-      <Sider
-        theme={theme}
-        collapsed={collapsed}
-        trigger={null}
-        collapsible
-        style={{ height: '100vh' }}
-      >
-        <div className={`sidebar-logo`}>
-          <div className="logo"></div>
-          {collapsed ? null : <h1>测试企业</h1>}
-        </div>
+    <StyledBody>
+      <div style={{ display: 'flex' }}>
         <Menus theme={theme} />
-      </Sider>
 
-      <Layout className="page-layout">
-        <Header
-          history={history}
-          collapsed={collapsed}
-          toggleCollapsed={() => setCollapsed((c) => !c)}
-        />
-        <Content style={{ minWidth: 980 }}>
-          <div className="content-wrap">
+        <StyledAdminWrapper>
+          <Header />
+          <Nav></Nav>
+          <StyledContent>
             <Suspense fallback={<Spin spinning />}>
               <Switch>
                 {routes.map((route, idx) => (
@@ -49,10 +42,11 @@ export default function LayoutIndex({ history }) {
                 <Route render={() => <div>not found</div>}></Route>
               </Switch>
             </Suspense>
-          </div>
-        </Content>
-        {/* <Footer style={{ textAlign: 'center' }}> supported by zfl team</Footer> */}
-      </Layout>
-    </Layout>
+          </StyledContent>
+
+          {/* <Footer style={{ textAlign: 'center' }}> supported by zfl team</Footer> */}
+        </StyledAdminWrapper>
+      </div>
+    </StyledBody>
   );
 }

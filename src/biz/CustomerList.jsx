@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, Input, Table, Select, message, Space, Popover, Popconfirm } from 'antd';
 import { useAntdTable } from 'ahooks';
-import FormRenderer from 'antd-form-render';
+import FormRenderer, { FormSpaceRender } from 'antd-form-render';
 import usePageTitle from '~/hooks/usePageTitle';
 
 const getTableData = ({ current = 1, pageSize = 10 }, formData = {}) => {
@@ -79,8 +79,8 @@ export default function CustomerList({ history }) {
   ];
 
   return (
-    <div className="form-page">
-      <div className="list-search">
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
         <Button
           style={{ marginLeft: 15 }}
           type="primary"
@@ -89,9 +89,10 @@ export default function CustomerList({ history }) {
           新增客户
         </Button>
         <Form form={form} onFinish={search}>
-          <FormRenderer layoutData={searchLayout} cols={3} />
+          <FormSpaceRender layoutData={searchLayout} align="start" />
         </Form>
       </div>
+
       <div>
         <Table
           className="table-content"

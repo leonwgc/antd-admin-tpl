@@ -3,10 +3,44 @@ import { nanoid } from 'nanoid';
 import { useLocation, useHistory } from 'react-router-dom';
 import { Menu } from 'antd';
 import Icon from '~/common/Icon';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { useSelector, useUpdateStore } from 'simple-redux-store';
 import { getSearchParams } from '~/utils/helper';
 const { SubMenu } = Menu;
+
+const StyledWrap = styled.div`
+  height: 100vh;
+  background-color: #001529;
+`;
+
+const StyledMenuTop = styled.div`
+  display: flex;
+  height: 64px;
+  width: ${({ collapsed }) => (collapsed ? '80px' : '200px')} !important;
+  justify-content: center;
+  align-items: center;
+
+  > .logo {
+    width: 32px;
+    height: 32px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url('https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg');
+  }
+`;
+
+const StyledMenu = styled(Menu)`
+  border-right: none;
+  height: calc(100vh - 64px);
+  width: ${({ collapsed = false }) => (collapsed ? '80px' : '200px')};
+  font-size: 14px;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
 
 const sep = '$';
 
@@ -186,19 +220,24 @@ const Menus = () => {
     });
   };
   return (
-    <div collapsed={menuCollapsed}>
-      <Menu
-        theme="dark"
+    <StyledWrap>
+      <StyledMenuTop collapsed={menuCollapsed}>
+        <div className="logo"></div>
+      </StyledMenuTop>
+
+      <StyledMenu
         collapsed={menuCollapsed}
-        mode={menuCollapsed ? 'vertical' : 'inline'}
+        theme="dark"
+        mode={'inline'}
         onClick={onClick}
         openKeys={openKeys}
         selectedKeys={selectedKeys}
         onOpenChange={setOpenKeys}
+        inlineCollapsed={menuCollapsed}
       >
         {menuRender(menuInfo?.menus)}
-      </Menu>
-    </div>
+      </StyledMenu>
+    </StyledWrap>
   );
 };
 

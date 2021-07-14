@@ -3,12 +3,10 @@ import { ConfigProvider, Spin } from 'antd';
 import zhCN from 'antd/es/locale/zh_CN';
 import 'dayjs/locale/zh-cn';
 import { Route, Switch, Redirect, BrowserRouter as Router } from 'react-router-dom';
-import { getSearchParams } from '~/utils/helper';
-import { useSelector, useUpdateStore } from 'simple-redux-store';
+import { useUpdateStore } from 'simple-redux-store';
 import dayjs from 'dayjs';
 import routes from './routes';
 import usePageTitle from '~/hooks/usePageTitle';
-import { getFlatMenus } from '~/layout/Menus';
 import * as service from '~/service';
 import './App.less';
 
