@@ -1,5 +1,5 @@
 import React, { Suspense, useState } from 'react';
-import { Layout, Menu, Spin } from 'antd';
+import { Layout, Spin } from 'antd';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import routes from './routes';
 import Menus from './Menus';
@@ -13,13 +13,9 @@ const StyledContent = styled.div`
   background-color: #f5f5f5;
   padding: 20px;
 `;
-
-const { Content, Footer, Sider } = Layout;
 const theme = 'dark';
 
-export default function LayoutIndex({ history }) {
-  const [collapsed, setCollapsed] = useState(false);
-
+export default function LayoutIndex() {
   return (
     <StyledBody>
       <div style={{ display: 'flex' }}>
@@ -43,8 +39,6 @@ export default function LayoutIndex({ history }) {
               </Switch>
             </Suspense>
           </StyledContent>
-
-          {/* <Footer style={{ textAlign: 'center' }}> supported by zfl team</Footer> */}
         </StyledAdminWrapper>
       </div>
     </StyledBody>

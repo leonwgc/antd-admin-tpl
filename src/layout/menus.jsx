@@ -8,6 +8,8 @@ import { useSelector, useUpdateStore } from 'simple-redux-store';
 import { getSearchParams } from '~/utils/helper';
 const { SubMenu } = Menu;
 
+const theme = 'dark';
+
 const StyledWrap = styled.div`
   height: 100vh;
   background-color: #001529;
@@ -16,11 +18,18 @@ const StyledWrap = styled.div`
 const StyledMenuTop = styled.div`
   display: flex;
   height: 64px;
-  width: ${({ collapsed }) => (collapsed ? '80px' : '200px')} !important;
-  justify-content: center;
+  width: ${({ collapsed }) => (collapsed ? '80px' : '200px')};
+  justify-content: ${({ collapsed }) => (collapsed ? 'center' : 'flex-start')};
   align-items: center;
-
-  > .logo {
+  padding: ${({ collapsed }) => (!collapsed ? '0 20px' : 'unset')};
+  h1 {
+    color: ${({ theme }) => (theme === 'dark' ? '#fff' : '')};
+    vertical-align: middle;
+    font-size: 20px;
+    margin-bottom: 0;
+    margin-left: 16px;
+  }
+  .logo {
     width: 32px;
     height: 32px;
     background-position: center;
@@ -221,13 +230,14 @@ const Menus = () => {
   };
   return (
     <StyledWrap>
-      <StyledMenuTop collapsed={menuCollapsed}>
+      <StyledMenuTop collapsed={menuCollapsed} theme={theme}>
         <div className="logo"></div>
+        {menuCollapsed ? null : <h1>Ant Design</h1>}
       </StyledMenuTop>
 
       <StyledMenu
         collapsed={menuCollapsed}
-        theme="dark"
+        theme={theme}
         mode={'inline'}
         onClick={onClick}
         openKeys={openKeys}
