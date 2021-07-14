@@ -19,6 +19,14 @@ const colors = [
     name: 'blue',
     color: '#004bcc',
   },
+  {
+    name: 'purple',
+    color: '#9254de',
+  },
+  {
+    name: 'yellow',
+    color: 'rgb(250, 173, 20)',
+  },
 ];
 
 const StyledColorBlock = styled.div`
