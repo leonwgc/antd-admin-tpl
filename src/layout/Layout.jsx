@@ -6,11 +6,14 @@ import Nav from './Nav';
 import styled from 'styled-components';
 import Header from './Header';
 import { StyledAdminWrapper, StyledBody } from '~/common/StyledComponents';
-
 import settingRoutes from '~/setting/routes';
 import userRoutes from '~/user/routes';
 
 const routeList = [...settingRoutes, ...userRoutes];
+
+const StyledFlexLayout = styled.div`
+  display: flex;
+`;
 
 const StyledContent = styled.div`
   background-color: #fff;
@@ -27,9 +30,8 @@ const theme = 'dark';
 export default function LayoutIndex() {
   return (
     <StyledBody>
-      <div style={{ display: 'flex' }}>
+      <StyledFlexLayout>
         <Menus theme={theme} />
-
         <StyledAdminWrapper>
           <Header />
           <Nav></Nav>
@@ -49,7 +51,7 @@ export default function LayoutIndex() {
             </Suspense>
           </StyledContent>
         </StyledAdminWrapper>
-      </div>
+      </StyledFlexLayout>
     </StyledBody>
   );
 }
