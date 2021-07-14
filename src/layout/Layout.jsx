@@ -1,12 +1,16 @@
 import React, { Suspense, useState } from 'react';
 import { Spin } from 'antd';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import routes from './routes';
+import { Route, Switch } from 'react-router-dom';
 import Menus from './Menus';
 import Nav from './Nav';
 import styled from 'styled-components';
 import Header from './Header';
 import { StyledAdminWrapper, StyledBody } from '~/common/StyledComponents';
+
+import settingRoutes from '~/setting/routes';
+import userRoutes from '~/user/routes';
+
+const routeList = [...settingRoutes, ...userRoutes];
 
 const StyledContent = styled.div`
   background-color: #fff;
@@ -32,7 +36,7 @@ export default function LayoutIndex() {
           <StyledContent>
             <Suspense fallback={<Spin spinning />}>
               <Switch>
-                {routes.map((route, idx) => (
+                {routeList.map((route, idx) => (
                   <Route
                     key={idx}
                     path={route.path}

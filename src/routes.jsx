@@ -6,7 +6,7 @@ const routes = [
     component: lazy(() => import('./auth/Login')),
   },
   {
-    path: `/biz`,
+    path: `/:admin`,
     component: lazy(() => import('./layout/Layout')),
   },
 ];

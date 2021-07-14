@@ -8,8 +8,6 @@ import { useSelector, useUpdateStore } from 'simple-redux-store';
 import { getSearchParams } from '~/utils/helper';
 const { SubMenu } = Menu;
 
-const theme = 'dark';
-
 const StyledWrap = styled.div`
   background-color: #001529;
   transition: all 0.2s;
@@ -106,8 +104,7 @@ export const getMenuInfo = (menus, skipSetId = false) => {
 
 const defaultIcon = 'icon-zhankai_line';
 
-const Menus = () => {
-  const updateStore = useUpdateStore();
+const Menus = ({ theme = 'dark' }) => {
   const { currentMenu = {}, menuCollapsed = false } = useSelector((state) => state.app);
   const history = useHistory();
   const { pathname } = useLocation();

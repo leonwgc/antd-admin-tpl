@@ -7,6 +7,6 @@ export const getMenus = () => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(menuData);
-    }, 1000);
+    }, 200);
   });
 };
