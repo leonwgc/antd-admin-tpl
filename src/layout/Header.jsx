@@ -27,7 +27,7 @@ const StyledColorBlock = styled.div`
 const StyledHeader = styled.header`
   display: flex;
   height: 48px;
-  background-color: #fff;
+  background: ${(props) => props.theme.color};
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;

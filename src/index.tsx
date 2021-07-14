@@ -31,13 +31,14 @@ type StoreData = {
   menuCollapsed: boolean;
   isSettingVisile: boolean;
   colors: Color[];
-  color?: string; //当前颜色名称
+  color: string; //当前颜色名称
 };
 
 const initData: StoreData = {
   menuCollapsed: false,
   isSettingVisile: false,
   colors,
+  color: 'blue', //默认取蓝色
   ...getSetting(),
 };
 
