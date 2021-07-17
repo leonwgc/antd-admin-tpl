@@ -9,6 +9,10 @@ const routes = [
     path: `/user/List`,
     component: lazy(() => import('./List')),
   },
+  {
+    path: '/micro/hooks-pc',
+    component: lazy(() => import('../micro/HookRccPc')),
+  },
 ];
 
 export default routes;

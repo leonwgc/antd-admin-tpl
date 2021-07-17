@@ -8487,10 +8487,10 @@ react-router@5.2.0:
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
 
-react-use-lib@latest:
-  version "0.1.3"
-  resolved "https://registry.nlark.com/react-use-lib/download/react-use-lib-0.1.3.tgz#a15281be819ac6539e821e819ad109a3cf8b51db"
-  integrity sha1-oVKBvoGaxlOegh6BmtEJo8+LUds=
+react-use-lib@~0.1.4:
+  version "0.1.4"
+  resolved "https://registry.nlark.com/react-use-lib/download/react-use-lib-0.1.4.tgz#b9598b6c4ef2dc14b197b67b37233e8e48baa04e"
+  integrity sha1-uVmLbE7y3BSxl7Z7NyM+jki6oE4=
   dependencies:
     animate.css "^4.1.1"
     intersection-observer "^0.12.0"

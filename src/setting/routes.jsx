@@ -6,7 +6,7 @@ const routes = [
     component: lazy(() => import('./Page1')),
   },
   {
-    path: `/setting/Page1`,
+    path: `/setting/Page2`,
     component: lazy(() => import('./Page2')),
   },
 ];

@@ -22,9 +22,9 @@ const menuData = {
       funUrl: '/setting',
       childs: [
         {
-          funTitle: 'page1',
+          funTitle: '微服务页面测试',
           funLogo: 'icon-qiyezhanghu',
-          funUrl: `/setting/page1`,
+          funUrl: `/micro/hooks-pc`,
         },
         {
           funTitle: 'page2',
