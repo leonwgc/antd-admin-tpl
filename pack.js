@@ -47,7 +47,7 @@ pack(
       port: 3003,
       historyApiFallback: true,
       headers: { 'Access-Control-Allow-Origin': '*' },
-      setup: function (app, server) {
+      before: function (app) {
         app.use(express.static(path.join(__dirname, `public`)));
       },
     },
