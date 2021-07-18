@@ -16,7 +16,7 @@
     "react-router-dom": "^5.2.0",
     "react-use-lib": "~0.1.4",
     "simple-browser-store": "latest",
-    "simple-react-qiankun": "^0.1.1",
+    "simple-react-qiankun": "^0.1.4",
     "simple-redux-store": "latest",
     "styled-components": "^5.3.0",
     "xhr-fetch-lib": "^1.2.1"

@@ -11,7 +11,7 @@ const routes = [
   },
   {
     path: '/micro/hooks-pc',
-    component: lazy(() => import('../micro/HookRccPc')),
+    component: lazy(() => import('../micro/App')),
   },
 ];
 
