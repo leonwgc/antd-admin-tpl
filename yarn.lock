@@ -9119,6 +9119,13 @@ simple-browser-store@latest:
   dependencies:
     js-cookie "^2.2.1"
 
+simple-react-qiankun@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.nlark.com/simple-react-qiankun/download/simple-react-qiankun-0.1.1.tgz#4fdcfb8f591bba8d578365c1c014c4c1797175d5"
+  integrity sha1-T9z7j1kbuo1Xg2XBwBTEwXlxddU=
+  dependencies:
+    qiankun "^2.4.3"
+
 simple-redux-store@latest:
   version "1.0.2"
   resolved "https://registry.nlark.com/simple-redux-store/download/simple-redux-store-1.0.2.tgz#dc66ac46ef3af094673aa74c649b9a497486128c"
